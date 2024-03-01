@@ -1,7 +1,0 @@
-
-bazel_dep(name = "platforms", version = "0.0.8")
-git_override(
-    module_name = "platforms",
-    remote = "https://github.com/bazelbuild/platforms",
-    commit = "6b04b816a0edc09e1a3ad4a094177e181a2a1803",
-)
