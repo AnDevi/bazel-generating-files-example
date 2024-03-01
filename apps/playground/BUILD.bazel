@@ -1,0 +1,42 @@
+"""
+Binary playground-server target
+"""
+
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "generator",
+    srcs = ["generator.sh"],
+)
+
+genrule(
+    name = "script_generator_cpp",
+    outs = ["cpp/Interface/wrappers/dummy.cpp"],
+    srcs = ["//libs/sdk:sdk_files"],
+    cmd = """
+    args=$(locations //apps/playground:generator)
+    (set -x && bash $$args "$@") 2>&1
+    """,
+    tools = [":generator"],
+    executable = False,
+    local=True,
+    message = "Generating cpp files",
+)
+
+cc_library(
+    name = "library",
+    srcs = [":script_generator_cpp"]
+    + glob(["source/*.cpp",
+                 "source/Generated/*.cpp"]),
+    hdrs = glob(["source/Generated/*.hpp"]),
+    deps = [
+        "//libs/sdk",
+    ],
+)
+
+cc_binary(
+    name = "app",
+    deps = [
+        ":library",
+    ],
+)

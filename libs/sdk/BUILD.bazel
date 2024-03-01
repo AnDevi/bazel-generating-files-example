@@ -1,0 +1,22 @@
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "model",
+    srcs = glob(["sdk/model/**/*.cpp"]),
+    hdrs = glob(["sdk/model/**/*.hpp"]),
+    includes = ["."],
+)
+
+cc_library(
+    name = "sdk",
+    deps = [
+        ":model",
+    ],
+)
+
+filegroup(
+    name = "sdk_files",
+    srcs = glob(["sdk/**/*.cpp"]) +
+           glob(["sdk/**/*.hpp"]),
+)
