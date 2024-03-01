@@ -9,6 +9,9 @@ mkdir -p "${script_dir}/source/Generated"
 
 rm "${script_dir}/source/Generated"/* 2>/dev/null || true
 
+# sleep for 0.1s - it simulates that this script would generate more files
+sleep 0.1
+
 echo "Creating ScriptObject.hpp"
 cat > "${script_dir}/source/Generated/ScriptObject.hpp" <<< '
 #pragma once
